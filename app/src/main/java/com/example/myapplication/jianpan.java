@@ -1,5 +1,5 @@
 package com.example.myapplication;
-//网上找的https://blog.csdn.net/weixin_45675097/article/details/121776728?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171716862016800211548677%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171716862016800211548677&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-2-121776728-null-null.142^v100^pc_search_result_base8&utm_term=Android%20studio%20%E6%98%BE%E7%A4%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%AE%E7%9B%98&spm=1018.2226.3001.4187
+
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.text.Editable;

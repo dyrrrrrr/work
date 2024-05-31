@@ -48,6 +48,15 @@
                 android:inputType="number|numberDecimal"
                 app:layout_constraintBottom_toBottomOf="@+id/notes"
                 app:layout_constraintEnd_toEndOf="parent" />
+            <android.inputmethodservice.KeyboardView
+                android:id="@+id/jianpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
