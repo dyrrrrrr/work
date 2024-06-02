@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {//创建数据库
         db.execSQL("CREATE TABLE "+USER+"(USERNAME TEXT primary key,PASSWORD TEXT NOT NULL)");
-        db.execSQL("CREATE TABLE "+MONEY+"(USERNAME TEXT,ASPECT TEXT,NUM REAL,TIME TEXT,BANK TEXT,NOTE TEXT)");
+        db.execSQL("CREATE TABLE "+MONEY+"(USERNAME TEXT,ASPECT TEXT,NUM REAL,TIME TEXT)");
     }
 
     @Override

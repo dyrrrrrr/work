@@ -91,12 +91,17 @@ public class shouru extends Fragment {
         });
 
         jp.setOnEnsureListener(new jianpan.OnEnsureListener() {
+
             @Override
             public void onEnsure() {
                 String nowmoney=moneynum.getText().toString();
                 if(TextUtils.isEmpty(nowmoney)||nowmoney.equals("0")) {
                     getActivity().finish();
                     return;
+                }else{
+                    //将数值、备注存在数据库
+                    double amount = Double.parseDouble(nowmoney);
+
                 }
                 getActivity().finish();
             }

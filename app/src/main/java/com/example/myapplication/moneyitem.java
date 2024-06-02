@@ -5,25 +5,21 @@ public class moneyitem {
     private String aspect;
     private float num;
     private String time;
-    private String bank;
-    private String note;
+
     private moneyitem(){
         super();
         username="";
         aspect="";
         num= Float.parseFloat("");
         time="";
-        bank="";
-        note="";
+
     }
-    public moneyitem(String username,String aspect,float num,String time,String bank,String note) {
+    public moneyitem(String username,String aspect,float num,String time) {
         super();
         this.username=username;
         this.aspect=aspect;
         this.num=num;
         this.time=time;
-        this.bank=bank;
-        this.note=note;
     }
     public String getUserame(){
         return username;
@@ -49,16 +45,5 @@ public class moneyitem {
     public void setTime(String time) {
         this.time = time;
     }
-    public String getBank() {
-        return bank;
-    }
-    public void setBank(String bank) {
-        this.bank = bank;
-    }
-    public String getNote() {
-        return note;
-    }
-    public void setNote(String note) {
-        this.note = note;
-    }
+
 }
