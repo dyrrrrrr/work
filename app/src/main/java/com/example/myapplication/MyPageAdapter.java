@@ -17,15 +17,13 @@ public class MyPageAdapter extends FragmentPagerAdapter {
             return new account();
         }else if (position==1){
             return new calendar();
-        }else if (position==2){
+        }else{
             return new report_forms();
-        }else {
-            return new bank();
         }
     }
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
     @Override
     public CharSequence getPageTitle(int position) {
@@ -37,8 +35,6 @@ public class MyPageAdapter extends FragmentPagerAdapter {
                 return "日历";
             case 2:
                 return "报表";
-            case 3:
-                return "管理";
             default:
                 return null;
         }

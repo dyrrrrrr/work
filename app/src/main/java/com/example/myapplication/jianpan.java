@@ -40,27 +40,54 @@ public class jianpan {
         public void onRelease(int i) {
 
         }
-
+        boolean isDecimalPoint = true; // 新增布尔变量，用于跟踪小数点是否已输入
         @Override
         public void onKey(int i, int[] ints) {
-            Editable editable=editText.getText();
-            int start=editText.getSelectionStart();
-            if(i==-1){//删除
-                if(editable!=null&&editable.length()>0){
-                    if(start>0){
-                        editable.delete(start-1,start);
+            int start = editText.getSelectionStart();
+            Editable editable = editText.getText();
+            int end = editable.length();
+            if (i == -3) { // 清零键
+                editable.replace(0, editable.length(), "0.00");
+                isDecimalPoint = true;
+            } else if (i == -1) { // 删除键
+                if(Float.parseFloat(editable.toString())!=0) {
+                    if (editable.length() > 0) {
+                        if (end > 0) {
+                            if(editable.toString().indexOf(".")==end-1){
+                                isDecimalPoint = false;
+                            }
+                            editable.delete(end - 1, end);
+                        } else {
+                            editable.clear();
+                            isDecimalPoint = false;
+                        }
+                    }
+                    if (editable.length() == 0) {
+                        editable.append("0.00");
+                        isDecimalPoint = true;
                     }
                 }
-            }
-            else if(i==-2){//确定
-                onEnsureListener.onEnsure();//接口回调
-                System.out.println(editText.getText().toString());
-            }
-            else if(i==-3){//清零
-                editable.clear();
-            }
-            else{
-                editable.insert(start,Character.toString((char)i));
+            } else if (i == -2) { // 确定键
+                onEnsureListener.onEnsure();
+            } else if (i == '.') { // 小数点键
+                if (!isDecimalPoint&&!editable.toString().equals("0.00")) { // 小数点只能有一个
+                    editable.insert(end, ".");
+                    isDecimalPoint = true; // 更新小数点标志
+                }
+            }else {
+                if(editable.toString().equals("0.00")){
+                    isDecimalPoint = false;
+                    editText.setText(Character.toString((char)i));
+                } else if (Float.parseFloat(editable.toString())==0&&!editable.toString().contains(".")) {
+                    isDecimalPoint = false;
+                    editText.setText(Character.toString((char)i));
+                } else{
+                    if (!editable.toString().contains(".")){//整数
+                        editable.insert(end,Character.toString((char)i));
+                    }else if(editable.length() - editable.toString().indexOf(".") < 3){//小数点后两位
+                        editable.insert(end,Character.toString((char)i));
+                    }
+                }
             }
         }
 

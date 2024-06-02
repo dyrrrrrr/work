@@ -78,10 +78,6 @@ public class viewpager extends AppCompatActivity {
         if (tab3 != null) {
             tab3.setIcon(R.drawable.report_forms);
         }
-        TabLayout.Tab tab4 = tabLayout.getTabAt(3);
-        if (tab4 != null) {
-            tab4.setIcon(R.drawable.bank);
-        }
     }
 
 }

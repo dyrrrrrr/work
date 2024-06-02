@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,11 +67,29 @@ public class shouru extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_zhichu, container, false);
+        View view=inflater.inflate(R.layout.fragment_shouru, container, false);
         moneynum= view.findViewById(R.id.moneynum);
         keyboardView=view.findViewById(R.id.jianpan);
         jp=new jianpan(keyboardView,moneynum);
         jp.show();
+
+        moneynum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s) || s.toString().equals(".")) {
+                    moneynum.setText("0.00");
+                }
+            }
+        });
+
         jp.setOnEnsureListener(new jianpan.OnEnsureListener() {
             @Override
             public void onEnsure() {
