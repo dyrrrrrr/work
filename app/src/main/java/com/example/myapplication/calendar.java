@@ -1,12 +1,19 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +66,26 @@ public class calendar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view=inflater.inflate(R.layout.fragment_calendar, container, false);
+        CalendarView calendarView = view.findViewById(R.id.calenderView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                // 获取点击的日期
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
+                // 格式化日期
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, dayOfMonth); // 设置日期
+                String clickedDate = dateFormat.format(calendar.getTime());
+                // 创建Intent，用于启动新页面
+                Intent intent = new Intent(getContext(), day.class);
+                intent.putExtra("DATE_KEY", clickedDate); // 将日期作为额外数据传递
+
+                // 启动新页面
+                startActivity(intent);
+            }
+        });
+        return view;
     }
 }

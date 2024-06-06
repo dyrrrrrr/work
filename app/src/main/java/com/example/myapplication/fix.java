@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -14,22 +13,20 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+//有问题，运行不了
+public class fix extends AppCompatActivity {
 
-public class addact extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewpager;
     private addactadapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addact);
+        setContentView(R.layout.activity_fix);
 
-        viewpager = findViewById(R.id.viewpager1);
+        viewpager = findViewById(R.id.viewpager2);
         adapter = new addactadapter(this.getSupportFragmentManager());
         viewpager.setAdapter(adapter);
-
-        tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewpager);
 
         SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "默认用户名");
@@ -54,7 +51,6 @@ public class addact extends AppCompatActivity {
         });
     }
     public void imageexit(View v){
-        Intent intent = new Intent(this, com.example.myapplication.viewpager.class);
-        startActivity(intent);
+        finish();
     }
 }

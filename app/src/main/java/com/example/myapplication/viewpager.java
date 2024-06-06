@@ -57,6 +57,7 @@ public class viewpager extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.menuLogin) {
             // 跳转到登录页面
+
             Intent intent = new Intent(this, login.class); // 确保Login类存在
             startActivity(intent);
             return true;

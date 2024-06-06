@@ -1,25 +1,35 @@
 package com.example.myapplication;
 
 public class moneyitem {
+    private  int id;
     private String username;
     private String aspect;
     private float num;
     private String time;
 
-    private moneyitem(){
+    public moneyitem(){
         super();
         username="";
         aspect="";
-        num= Float.parseFloat("");
+        num=0;
         time="";
 
     }
-    public moneyitem(String username,String aspect,float num,String time) {
+
+    public moneyitem( String username, String aspect, float num, String time) {
         super();
         this.username=username;
         this.aspect=aspect;
         this.num=num;
         this.time=time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     public String getUserame(){
         return username;

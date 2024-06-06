@@ -11,10 +11,10 @@
       <entry key="app">
         <State />
       </entry>
-      <entry key="login">
+      <entry key="day">
         <State />
       </entry>
-      <entry key="register">
+      <entry key="fix">
         <State />
       </entry>
       <entry key="viewpager">

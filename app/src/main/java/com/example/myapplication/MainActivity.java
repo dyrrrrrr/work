@@ -26,12 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new Handler().postDelayed(runnable,5000);
-    }
-    public void rightnow(View btn){
-        startActivity(new Intent(MainActivity.this, login.class));
-        handler.removeCallbacks(runnable);//取消定时
-        Log.i(Tag,"rightnow");
-        finish();
+        new Handler().postDelayed(runnable,1000);
+
     }
 }

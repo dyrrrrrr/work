@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 
@@ -8,10 +9,16 @@ import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,9 +77,17 @@ public class shouru extends Fragment {
         View view=inflater.inflate(R.layout.fragment_shouru, container, false);
         moneynum= view.findViewById(R.id.moneynum);
         keyboardView=view.findViewById(R.id.jianpan);
+        RadioGroup radioGroup = view.findViewById(R.id.radioGroup1);
         jp=new jianpan(keyboardView,moneynum);
         jp.show();
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton selectedRadioButton = group.findViewById(checkedId);
+                String selectedType = selectedRadioButton.getText().toString();
+            }
+        });
         moneynum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -99,9 +114,23 @@ public class shouru extends Fragment {
                     getActivity().finish();
                     return;
                 }else{
-                    //将数值、备注存在数据库
-                    double amount = Double.parseDouble(nowmoney);
-
+                    //将数值、类型存在数据库
+                    int checkedId = radioGroup.getCheckedRadioButtonId();
+                    RadioButton selectedRadioButton = radioGroup.findViewById(checkedId);
+                    String selectedType = selectedRadioButton.getText().toString();
+                    // 现在您可以使用 selectedType 和 nowmoney 来保存数据
+                    float amount = Float.parseFloat(nowmoney);
+                    String username = globaldata.getInstance().getUsername();
+                    Date cur=new Date();
+                    SimpleDateFormat Format=new SimpleDateFormat("yyyy/MM/dd");
+                    String time=Format.format(cur);
+                    //加入数据库
+                    moneyitem item=new moneyitem(username,selectedType,amount,time);
+                    manager_money manager=new manager_money(getContext());
+                    manager.add(item);
+                    Log.i("111","num"+String.valueOf(amount));
+                    Intent main=new Intent(getActivity(), viewpager.class);
+                    startActivity(main);
                 }
                 getActivity().finish();
             }

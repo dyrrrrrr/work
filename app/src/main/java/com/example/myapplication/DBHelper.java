@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper{
     private static final int VERSION = 1;//版本号
-    private static final String DB_NAME = "app.db";//数据库名字
+    private static final String DB_NAME = "work.db";//数据库名字
     public static final String USER = "user";//表名
     public static final String MONEY = "money";//表名
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {//创建数据库
         db.execSQL("CREATE TABLE "+USER+"(USERNAME TEXT primary key,PASSWORD TEXT NOT NULL)");
-        db.execSQL("CREATE TABLE "+MONEY+"(USERNAME TEXT,ASPECT TEXT,NUM REAL,TIME TEXT)");
+        db.execSQL("CREATE TABLE "+MONEY+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT,ASPECT TEXT,NUM REAL,TIME TEXT)");
     }
 
     @Override

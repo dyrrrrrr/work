@@ -25,7 +25,7 @@ public class login extends AppCompatActivity {
         username=findViewById(R.id.username);
         password=findViewById(R.id.Password);
 
-        myhelper=new DBHelper(this,"user",null, 1);
+        myhelper=new DBHelper(this);
         db=myhelper.getWritableDatabase();
     }
     public void login(View btn){
@@ -37,6 +37,7 @@ public class login extends AppCompatActivity {
         int flag = cursor.getCount();
         if (flag!=0){
             //如果密码正确，进入主页
+            globaldata.getInstance().setUsername(uname);
             Intent main=new Intent(this, viewpager.class);
             startActivity(main);
         }else{

@@ -26,7 +26,7 @@ public class register extends AppCompatActivity {
         username=findViewById(R.id.username);
         password=findViewById(R.id.Password);
 
-        myhelper=new DBHelper(this,"user",null, 1);
+        myhelper=new DBHelper(this);
         db=myhelper.getWritableDatabase();
     }
     public  void register1(View v){
