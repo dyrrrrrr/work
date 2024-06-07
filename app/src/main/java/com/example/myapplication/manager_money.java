@@ -56,6 +56,16 @@ public class manager_money
         db.close();
         return list;
     }
+
+    public void update(int id,float account,String selecttype){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("NUM",account);
+        values.put("ASPECT", selecttype);
+        String selection = "ID = ?";
+        String[] selectionArgs = { String.valueOf(id) };
+        db.update(tbname, values, selection, selectionArgs);
+    }
     public void deleteAll(){
         SQLiteDatabase db = helper.getWritableDatabase();
         db.delete(tbname,null,null);

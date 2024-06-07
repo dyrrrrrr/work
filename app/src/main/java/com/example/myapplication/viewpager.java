@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -47,6 +48,11 @@ public class viewpager extends AppCompatActivity {
         // 设置Tab的图标
         setTabIcons(tabLayout);
 
+        int id = getIntent().getIntExtra("id", 0);
+        if (id == 1) {
+            viewPager.setCurrentItem(1);
+        }//跳转回日历
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,5 +86,7 @@ public class viewpager extends AppCompatActivity {
             tab3.setIcon(R.drawable.report_forms);
         }
     }
+
+
 
 }

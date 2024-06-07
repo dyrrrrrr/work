@@ -70,7 +70,10 @@ public class day extends AppCompatActivity {
 
     }
     public void back(View v){
-        finish();
+
+        Intent intent = new Intent(this, viewpager.class);
+        intent.putExtra("id",1);
+        startActivity(intent);
     }
 
     private void onItemLongClick(final int position) {
@@ -111,4 +114,6 @@ public class day extends AppCompatActivity {
         outnum.setText(String.valueOf(outsum));
 
     }
+
+
 }

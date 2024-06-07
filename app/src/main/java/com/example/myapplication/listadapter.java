@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.hardware.display.DeviceProductInfo;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +37,19 @@ public class listadapter extends RecyclerView.Adapter<listadapter.myholder> {
         holder.num.setText(String.valueOf(item.getNum()));
         holder.aspect.setText("类型："+item.getAspect());
         holder.time.setText("时间:"+item.getTime());
+
+        holder.itemView.setOnClickListener(v -> {
+            // 可以在这里添加跳转到修改页面的逻辑
+            // 例如，使用 Intent 传递当前项的数据
+            Intent intent = new Intent(holder.itemView.getContext(), fix.class);
+            intent.putExtra("ID", item.getId()); // 假设 moneyitem 类有一个 getId 方法
+            intent.putExtra("NUM", item.getNum()); // 假设 moneyitem 类有一个 getNum 方法
+            intent.putExtra("ASPECT", item.getAspect()); // 假设 moneyitem 类有一个 getAspect 方法
+            intent.putExtra("TIME", item.getTime()); // 假设 moneyitem 类有一个 getTime 方法
+
+            // 启动修改页面
+            holder.itemView.getContext().startActivity(intent);
+        });
 
         holder.itemView.setOnLongClickListener(v -> {
             if (onLongClickListener != null) {

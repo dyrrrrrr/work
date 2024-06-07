@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/tabs1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="支持或收入"
@@ -39,7 +39,7 @@
 
     <ImageButton
         android:id="@+id/imageexit"
-        android:onClick="imageexit"
+        android:onClick="imageexit1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"

@@ -149,7 +149,7 @@ public class account extends Fragment {
             public void onLongClick(int position) {
                 onItemLongClick(position);
             }
-        });
+        });//长按删除
 
         return view;
     }
@@ -190,7 +190,7 @@ public class account extends Fragment {
         cal.add(Calendar.MONTH, 1);
         cal.set(Calendar.DAY_OF_MONTH, 0);
         String end = new SimpleDateFormat("yyyy/MM/dd").format(cal.getTime());
-        String[] args = {username, start, end};
+        String[] args = {username, start, end,String.valueOf(0.0f)};
 
         List<moneyitem> list1 = manager.list("username=? and time between ? and ? and num > ?", args);
         for (moneyitem item : list1) {
