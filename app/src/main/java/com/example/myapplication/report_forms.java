@@ -1,15 +1,33 @@
 package com.example.myapplication;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,9 +36,16 @@ import android.widget.Spinner;
  */
 public class report_forms extends Fragment {
     Spinner spinner;
+    TextView period;
+    boolean isMonthly = true;
+    PieChart p1;
+    PieChart p2;
 
+    ArrayList<PieEntry> entries1 = new ArrayList<>();
+    ArrayList<PieEntry> entries2 = new ArrayList<>();
+    private int year,month;
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // the fragment initialization parameters, ea.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -65,18 +90,33 @@ public class report_forms extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_report_forms, container, false);
-
+        period=view.findViewById(R.id.period);
         spinner = view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 getActivity(), R.array.options_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setSelection(0); // 设置默认值为“每周”
+        spinner.setSelection(0); // 设置默认值
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+        String Date = dateFormat.format(calendar.getTime());
+        String[] part = Date.split("/");
+        year= Integer.parseInt(part[0]);
+        month=Integer.parseInt(part[1]);
+        Button pre=view.findViewById(R.id.qian);
+        Button next=view.findViewById(R.id.hou);
+
+        p1=view.findViewById(R.id.costpc);
+        p2=view.findViewById(R.id.savepc);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // 处理选中项
+                isMonthly = position == 0;
+                updatePeriodDisplay();
+
             }
 
             @Override
@@ -84,7 +124,103 @@ public class report_forms extends Fragment {
 
             }
         });
+        pre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isMonthly) {
+                    year--;
+                } else { // 否则是月视图，前一个月
+                    if (month == 1) {
+                        year--;
+                        month = 12;
+                    } else {
+                        month--;
+                    }
+                }
+                updatePeriodDisplay();
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 如果是年视图，后一年
+                if (!isMonthly) {
+                    year++;
+                } else { // 否则是月视图，后一个月
+                    if (month == 12) {
+                        year++;
+                        month = 1;
+                    } else {
+                        month++;
+                    }
+                }
+                updatePeriodDisplay();
+            }
+
+        });
+
         return view;
+
+    }
+
+    private void updatePeriodDisplay() {
+        String username=globaldata.getInstance().getUsername();
+        manager_money manager=new manager_money(getContext());
+        entries1.clear();
+        entries2.clear();
+        if(!isMonthly){
+            period.setText(String.valueOf(year));
+            List<moneyitem> list=manager.aspectlist(username,String.valueOf(year));
+            for (moneyitem item:list){
+                if (item.getNum()>0){
+                    entries2.add(new PieEntry(item.getNum(), item.getAspect()));
+                }else {
+                    entries1.add(new PieEntry(Math.abs(item.getNum()), item.getAspect()));
+                }
+                Log.i("222",item.getAspect()+String.valueOf(item.getNum()));
+            }
+
+        }else {
+            period.setText(String.format("%d/%02d",year,month));
+
+        }
+
+        PieDataSet pset1=new PieDataSet(entries1,null);
+        PieDataSet pset2=new PieDataSet(entries2,null);
+
+        ArrayList<Integer> colors=new ArrayList<>();
+        colors.add(Color.rgb(144,238,144));
+        colors.add(Color.rgb(127,255,212));
+        colors.add(Color.rgb(255,140,0));
+        colors.add(Color.rgb(255,20,147));
+        colors.add(Color.rgb(255,192,203));
+        colors.add(Color.rgb(255,255,0));
+        colors.add(Color.rgb(255,215,0));
+        colors.add(Color.rgb(222,184,135));
+        pset1.setColors(colors);
+        pset2.setColors(colors);
+
+        p1.setDescription(null);
+        p1.setTouchEnabled(false);
+        p1.setData(new PieData(pset1));
+        p1.setUsePercentValues(true);
+        p1.setDrawSliceText(false);
+        p1.setHoleRadius(0f);
+        p1.setTransparentCircleRadius(0f);
+
+        p1.notifyDataSetChanged();
+        p1.invalidate();
+        p2.setDescription(null);
+        p2.setTouchEnabled(false);
+        p2.setData(new PieData(pset2));
+        p2.setUsePercentValues(true);
+        p2.setValueFormatter(new PercentFormatter(p2, true, 2));
+        p2.setDrawSliceText(false);
+        p2.setHoleRadius(0f);
+        p2.notifyDataSetChanged();
+        p2.invalidate();
+        p2.setTransparentCircleRadius(0f);
 
     }
 

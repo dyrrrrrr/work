@@ -207,9 +207,9 @@ public class account extends Fragment {
             thsum += item.getNum();
         }
 
-        innum.setText(String.valueOf(insum));
-        outnum.setText(String.valueOf(outsum));
-        thismonthnum.setText(String.valueOf(thsum));
+        innum.setText(String.format("%.2f", insum));
+        outnum.setText(String.format("%.2f", outsum));
+        thismonthnum.setText(String.format("%.2f",thsum));
 
     }
 

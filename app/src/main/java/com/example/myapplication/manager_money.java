@@ -66,6 +66,28 @@ public class manager_money
         String[] selectionArgs = { String.valueOf(id) };
         db.update(tbname, values, selection, selectionArgs);
     }
+
+    @SuppressLint("Range")
+    public List<moneyitem> aspectlist(String username, String period){
+        List<moneyitem> list = new ArrayList<>();
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String[] args={username,period+"%"};
+        String sql="select aspect,sum(num) as total_num from money where username like ? and time like ? group by aspect";
+        Cursor cursor= db.rawQuery(sql,args);
+        if(cursor!=null){
+            list=new ArrayList<moneyitem>();
+            while (cursor.moveToNext()){
+                moneyitem item=new moneyitem();
+                item.setAspect(cursor.getString(cursor.getColumnIndex("ASPECT")));
+                item.setNum(cursor.getFloat(cursor.getColumnIndex("total_num")));
+                Log.i("111",item.getAspect()+String.valueOf(item.getNum()));
+                list.add(item);
+            }
+            cursor.close();
+        }
+        db.close();
+        return list;
+    }
     public void deleteAll(){
         SQLiteDatabase db = helper.getWritableDatabase();
         db.delete(tbname,null,null);
