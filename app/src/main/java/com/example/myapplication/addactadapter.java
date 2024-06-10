@@ -28,7 +28,7 @@ public class addactadapter extends FragmentPagerAdapter {
         // 返回页面标题
         switch (position) {
             case 0:
-                return "收入"
+                return "收入";
             case 1:
                 return "支出";
             default:
