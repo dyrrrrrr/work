@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".viewpager"
-    android:background="@drawable/bluewhite_background"
+    android:background="#D0F2F6"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar

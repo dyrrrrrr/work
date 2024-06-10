@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -15,19 +16,29 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +54,7 @@ public class report_forms extends Fragment {
 
     ArrayList<PieEntry> entries1 = new ArrayList<>();
     ArrayList<PieEntry> entries2 = new ArrayList<>();
+
     private int year,month;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, ea.g. ARG_ITEM_NUMBER
@@ -110,6 +122,43 @@ public class report_forms extends Fragment {
         p1=view.findViewById(R.id.costpc);
         p2=view.findViewById(R.id.savepc);
 
+        p1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry entry, Highlight highlight) {
+                if (entry == null)
+                    return;
+                String aspect = (String) entry.getData();
+                Intent intent = new Intent(getContext(), aspect.class);
+                Log.i("111",aspect+year+month+isMonthly);
+                intent.putExtra("aspect", aspect);
+                intent.putExtra("year",year);
+                intent.putExtra("month",month);
+                intent.putExtra("is",isMonthly);
+                startActivity(intent);
+            }
+            @Override
+            public void onNothingSelected() {
+            }
+        });
+        p2.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry entry, Highlight highlight) {
+                if (entry == null)
+                    return;
+                String aspect = (String) entry.getData();
+                Log.i("111",aspect+year+month+isMonthly);
+                Intent intent = new Intent(getContext(), aspect.class);
+                intent.putExtra("aspect", aspect);
+                intent.putExtra("year",year);
+                intent.putExtra("month",month);
+                intent.putExtra("is",isMonthly);
+                startActivity(intent);
+            }
+            @Override
+            public void onNothingSelected() {
+            }
+        });
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -160,6 +209,7 @@ public class report_forms extends Fragment {
 
         });
 
+
         return view;
 
     }
@@ -169,25 +219,49 @@ public class report_forms extends Fragment {
         manager_money manager=new manager_money(getContext());
         entries1.clear();
         entries2.clear();
+
         if(!isMonthly){
             period.setText(String.valueOf(year));
             List<moneyitem> list=manager.aspectlist(username,String.valueOf(year));
+
             for (moneyitem item:list){
                 if (item.getNum()>0){
-                    entries2.add(new PieEntry(item.getNum(), item.getAspect()));
+                    PieEntry pieEntry=new PieEntry(item.getNum(), item.getAspect()+"("+item.getNum()+")");
+                    pieEntry.setData(item.getAspect());
+                    entries2.add(pieEntry);
+
                 }else {
-                    entries1.add(new PieEntry(Math.abs(item.getNum()), item.getAspect()));
+                    PieEntry pieEntry = new PieEntry(Math.abs(item.getNum()), item.getAspect()+"("+Math.abs(item.getNum())+")");
+                    pieEntry.setData(item.getAspect()); // 设置 data 属性
+                    entries1.add(pieEntry);
+
                 }
                 Log.i("222",item.getAspect()+String.valueOf(item.getNum()));
             }
 
         }else {
             period.setText(String.format("%d/%02d",year,month));
+            List<moneyitem> list=manager.aspectlist(username,String.format("%d/%02d",year,month));
+
+            for (moneyitem item:list){
+                if (item.getNum()>0){
+                    PieEntry pieEntry=new PieEntry(item.getNum(), item.getAspect()+"("+item.getNum()+")");
+                    pieEntry.setData(item.getAspect());
+                    Log.i("111",item.getAspect());
+                    entries2.add(pieEntry);
+                }else {
+                    PieEntry pieEntry = new PieEntry(Math.abs(item.getNum()), item.getAspect()+"("+Math.abs(item.getNum())+")");
+                    pieEntry.setData(item.getAspect()); // 设置 data 属性
+                    entries1.add(pieEntry);
+                }
+            }
+
 
         }
 
         PieDataSet pset1=new PieDataSet(entries1,null);
         PieDataSet pset2=new PieDataSet(entries2,null);
+
 
         ArrayList<Integer> colors=new ArrayList<>();
         colors.add(Color.rgb(144,238,144));
@@ -201,21 +275,19 @@ public class report_forms extends Fragment {
         pset1.setColors(colors);
         pset2.setColors(colors);
 
+
         p1.setDescription(null);
-        p1.setTouchEnabled(false);
         p1.setData(new PieData(pset1));
         p1.setUsePercentValues(true);
         p1.setDrawSliceText(false);
         p1.setHoleRadius(0f);
         p1.setTransparentCircleRadius(0f);
-
         p1.notifyDataSetChanged();
         p1.invalidate();
+
         p2.setDescription(null);
-        p2.setTouchEnabled(false);
         p2.setData(new PieData(pset2));
         p2.setUsePercentValues(true);
-        p2.setValueFormatter(new PercentFormatter(p2, true, 2));
         p2.setDrawSliceText(false);
         p2.setHoleRadius(0f);
         p2.notifyDataSetChanged();

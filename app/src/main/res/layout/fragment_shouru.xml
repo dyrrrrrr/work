@@ -15,13 +15,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="320dp">
+
             <RadioGroup
                 android:id="@+id/radioGroup1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="#FFFFFF"
                 android:checkedButton="@+id/cat11"
+                android:orientation="vertical"
                 tools:ignore="MissingConstraints">
 
                 <RadioButton
@@ -37,49 +38,50 @@
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:layout_weight="1"
-                    android:textSize="20sp"
-                    android:text="生活费" />
+                    android:text="生活费"
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/cat13"
                     android:layout_width="100dp"
-                    android:textSize="20sp"
                     android:layout_height="80dp"
                     android:layout_weight="1"
-                    android:text="红包" />
+                    android:text="红包"
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/cat14"
                     android:layout_width="150dp"
                     android:layout_height="80dp"
                     android:layout_weight="1"
-                    android:textSize="20sp"
-                    android:text="基金股票" />
+                    android:text="基金股票"
+                    android:textSize="20sp" />
 
 
                 <RadioButton
                     android:id="@+id/cat15"
                     android:layout_width="100dp"
-                    android:textSize="20sp"
                     android:layout_height="80dp"
                     android:layout_weight="1"
-                    android:text="其他" />
-
+                    android:text="其他"
+                    android:textSize="20sp" />
 
 
             </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:background="#E8E8E8"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#E8E8E8">
 
             <EditText
                 android:id="@+id/moneynum"
                 android:layout_width="120dp"
                 android:layout_height="65dp"
+                android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
                 android:background="#00FFFFFF"
                 android:ems="10"
@@ -87,20 +89,14 @@
                 android:inputType="number|numberDecimal"
                 android:text="0.00"
                 android:textColor="#4CAF50"
-                android:textSize="40sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="40sp" />
 
             <android.inputmethodservice.KeyboardView
                 android:id="@+id/jianpan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                android:background="#FFFFFF" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

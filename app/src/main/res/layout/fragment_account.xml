@@ -17,11 +17,11 @@
             android:id="@+id/thismouth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="100dp"
             android:text="当月结余"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -32,15 +32,17 @@
             android:layout_marginTop="10dp"
             android:textSize="50sp"
             android:text="0"
+            android:fontFamily="@font/fzchutijianshu"
             app:layout_constraintStart_toStartOf="@+id/thismouth"
             app:layout_constraintTop_toBottomOf="@+id/thismouth" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="200dp"
             android:layout_height="160dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:background="#4DFFFFFF"
+            android:background="@drawable/bg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -50,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="0"
+                android:fontFamily="@font/fzchutijianshu"
                 android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="@+id/in"
                 app:layout_constraintStart_toEndOf="@+id/in"
@@ -61,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="0"
+                android:fontFamily="@font/fzchutijianshu"
                 android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="@+id/out"
                 app:layout_constraintStart_toEndOf="@+id/out"

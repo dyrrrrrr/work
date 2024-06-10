@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.application")version "8.4.0"
 }
 
 android {
@@ -39,7 +39,8 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.activity:activity:1.8.0")
-    implementation(files("libs\\3.0.3\\MPAndroidChart-v3.0.3.jar"))
+
+    implementation(files("libs\\MPAndroidChartv_3.1.0.jar"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
