@@ -75,15 +75,15 @@ public class viewpager extends AppCompatActivity {
         //添加图标
         TabLayout.Tab tab1 = tabLayout.getTabAt(0);
         if (tab1 != null) {
-            tab1.setIcon(R.drawable.account);
+            tab1.setIcon(android.R.drawable.ic_menu_zoom);
         }
         TabLayout.Tab tab2 = tabLayout.getTabAt(1);
         if (tab2 != null) {
-            tab2.setIcon(R.drawable.calendar);
+            tab2.setIcon(android.R.drawable.ic_menu_month);
         }
         TabLayout.Tab tab3 = tabLayout.getTabAt(2);
         if (tab3 != null) {
-            tab3.setIcon(R.drawable.report_forms);
+            tab3.setIcon(android.R.drawable.ic_menu_sort_by_size);
         }
     }
 
