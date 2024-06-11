@@ -14,7 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="300dp"
             >
 
             <RadioGroup
@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="#FFFFFF"
+                android:textColor="@color/black"
                 android:checkedButton="@+id/cat1"
                 tools:ignore="MissingConstraints">
 
@@ -30,6 +31,7 @@
                     android:id="@+id/cat1"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:text="饮食"
                     android:textSize="20sp" />
@@ -39,6 +41,7 @@
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:text="生活" />
 
@@ -47,6 +50,7 @@
                     android:layout_width="100dp"
                     android:textSize="20sp"
                     android:layout_height="80dp"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:text="服装" />
 
@@ -54,6 +58,7 @@
                     android:id="@+id/cat4"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:textSize="20sp"
                     android:text="健康" />
@@ -65,6 +70,7 @@
                     android:layout_width="100dp"
                     android:textSize="20sp"
                     android:layout_height="80dp"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:text="娱乐" />
 
@@ -73,6 +79,7 @@
                     android:layout_width="100dp"
                     android:textSize="20sp"
                     android:layout_height="80dp"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:text="交通" />
 
@@ -81,6 +88,7 @@
                     android:id="@+id/cat7"
                     android:layout_width="100dp"
                     android:textSize="20sp"
+                    android:textColor="@color/black"
                     android:layout_height="80dp"
                     android:layout_weight="1"
                     android:text="学习" />
@@ -90,6 +98,7 @@
                     android:layout_width="100dp"
                     android:textSize="20sp"
                     android:layout_height="80dp"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:text="其他" />
 
@@ -108,7 +117,7 @@
             <EditText
                 android:id="@+id/moneynum"
                 android:layout_width="120dp"
-                android:layout_height="65dp"
+                android:layout_height="50dp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
                 android:background="#00FFFFFF"
